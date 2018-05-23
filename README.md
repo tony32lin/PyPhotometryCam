@@ -1,4 +1,5 @@
 # Photometry Camera Analysis Code
 
-## Usage
+## Tutorial
+See [here](https://github.com/tony32lin/PyPhotometryCam/blob/master/Tutorial.ipynb) 
 
