@@ -6,7 +6,10 @@ import matplotlib.gridspec as gridspec
 from matplotlib.backends.backend_pdf import PdfPages
 from PyPhotometryCam.utils.fit_func import gaussian_with_baseline,linfunc,ze_lin_func
 from scipy.optimize import curve_fit
+import logging
 plt.style.use(astropy_mpl_style)
+
+logger = logging.getLogger(__name__)
 
 def printOneRun(output_pdf,df_with_fit,df_img,original,print_criteria=None):
     df_img_with_fit = df_img.merge(df_with_fit,on='name')
@@ -15,6 +18,9 @@ def printOneRun(output_pdf,df_with_fit,df_img,original,print_criteria=None):
         df_img_sel = df_img_with_fit.query(print_criteria)
     else:
         df_img_sel = df_img_with_fit
+    if (len(df_img_sel) < 2):
+        logger.warning('Cannot output {}. There are less than 2 stars useable.'.format(output_pdf)) 
+        return
 
     with PdfPages(output_pdf) as pdf:
 
